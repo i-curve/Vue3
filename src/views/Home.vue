@@ -15,7 +15,7 @@ export default {
         const site = ref("北京")
         const store = useStore()
         const getMessage = () => {
-            GetWeather(store, site.value)
+            PostWeather(store, site.value)
         }
         return {
             site,
