@@ -1,18 +1,35 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="message-input">
+        <input placeholder="请输入所在城市" v-model="site">
+        <button @click="getMessage">查询</button>
+    </div>
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+import { PostWeather, GetWeather } from '@/server/api/weather'
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+    name: "pageMain",
+    setup () {
+        const site = ref("北京")
+        const store = useStore()
+        const getMessage = () => {
+            GetWeather(store, site.value)
+        }
+        return {
+            site,
+            getMessage
+        }
+    }
 }
 </script>
+<style scoped>
+.message-input {
+    padding-top: 30px;
+    text-align: center;
+}
+/* input, button {
+    height: 20px;
+} */
+</style>
